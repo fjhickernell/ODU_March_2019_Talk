@@ -28,6 +28,7 @@
 \DeclareMathOperator{\sol}{SOL}
 \DeclareMathOperator{\app}{APP}
 \DeclareMathOperator{\alg}{ALG}
+\DeclareMathOperator{\ACQ}{ACQ}
 \DeclareMathOperator{\ERR}{ERR}
 \DeclareMathOperator{\COST}{COST}
 \DeclareMathOperator{\COMP}{COMP}
@@ -55,18 +56,18 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 
 \renewcommand{\OffTitleLength}{-10ex}
 \setlength{\FJHThankYouMessageOffset}{-8ex}
-\title{An Optimal Adaptive Algorithm Based on a Pilot Sample}
+\title{The Right Ingredients for \\ Adaptive Function Approximation Algorithms}
 \author[]{Fred J. Hickernell}
 \institute{Department of Applied Mathematics \\
 	Center for Interdisciplinary Scientific Computation \\  Illinois Institute of Technology \\
 	\href{mailto:hickernell@iit.edu}{\url{hickernell@iit.edu}} \quad
 	\href{http://mypages.iit.edu/~hickernell}{\url{mypages.iit.edu/~hickernell}}}
 
-\thanksnote{with Yuhan Ding, Peter Kritzer, and Simon Mak \\
+\thanksnote{with Yuhan Ding, Mac Hyman, Peter Kritzer, and Simon Mak \\
 	partially supported by  NSF-DMS-1522687 and NSF-DMS-1638521 (SAMSI)
 }
-\event{Twelfth International Conference on Monte Carlo Methods and Applications}
-\date[]{July 8, 2019}
+\event{Old Dominion University}
+\date[]{March 6, 2020}
 
 \input FJHDef.tex
 
@@ -99,7 +100,42 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \everymath{\displaystyle}
 \frame{\titlepage}
 
+
 \section{Introduction}
+
+\begin{frame}{Problem}
+
+\vspace{-5ex}
+\begin{itemize}
+    \item Have a \alert{black-box} function routine $f \colon \Omega \subseteq \reals^d \to \reals$, e.g., output of a computer simulation
+    
+    \item Cost of a function value, $\$(f)$, is \alert{expensive}
+    
+    \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to \cg$ such that 
+    \[
+    \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg
+    \]
+    where cost of an $\alg(f,\varepsilon)$ value is \alert{cheap}\uncover<2->{, and 
+    \begin{gather*}
+        \text{\alert{design or node array} }\mX \in \Omega^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
+        \vx_{n+1} = \argmax_{\vx \in \Omega} \ACQ(\vx,n,\mX,\vy) \text{ \alert{acquisition function}} \\
+        \norm[\cg]{f - \app(n,\mX,\vy)} \le \ERR(n,\mX,\vy) \text{ \alert{data-driven error bound}} \qquad \forall n \in \naturals, \ f \in \cc \\
+        n^* = \min \, \{ n \in \naturals \colon \ERR(n,\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} \\
+        \alg(f,\varepsilon) = \app(n^*,\mX,\vy) \text{ \alert{fixed budget approximation}}
+    \end{gather*}}
+ \end{itemize}
+ 
+ \vspace{-4ex}
+ \uncover<2->{\alert{Adaptive} sample size, design, and fixed budget approximation}
+    
+\end{frame}
+
+
+\section{Univariate, Low Accuracy}
+
+
+
+
 
 \begin{frame}{Context}
 
@@ -133,6 +169,9 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \end{itemize}
 
 \end{frame}
+
+\end{document}
+
 
 \section{Algorithm}
 
