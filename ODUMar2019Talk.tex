@@ -113,9 +113,9 @@ Adaptive algorithms are convenient for the practitioner because they automatical
     
     \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to \cg$ such that 
     \[
-    \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg
+    \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg \alert{\text{ Banach space}}
     \]
-    where cost of an $\alg(f,\varepsilon)$ value is \alert{cheap}\uncover<2->{, and 
+    cost of an $\alg(f,\varepsilon)$ value is \alert{cheap}\uncover<2->{
     \begin{gather*}
         \text{\alert{design or node array} }\mX \in \Omega^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
         \vx_{n+1} = \argmax_{\vx \in \Omega} \ACQ(\vx,n,\mX,\vy) \text{ \alert{acquisition function}} \\
@@ -132,6 +132,15 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 
 
 \section{Univariate, Low Accuracy}
+
+\begin{frame}{Linear Splines}
+\begin{align*}
+    f & :[a,b] \to \reals, \qquad a =: x_0 < x_1 < \cdots < x_n :=b, \qquad \vy = f(\vx) \\
+    \app(n,\vx,\vy) & := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \qquad \alert{\text{linear spline}} \\
+    \norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\vx,\vy)} & \le 
+\end{align*}
+    
+\end{frame}
 
 
 
