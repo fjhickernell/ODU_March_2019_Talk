@@ -205,40 +205,6 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 
 
 
-
-\begin{frame}{Context}
-
-\vspace{-5ex}
-
-\begin{itemize}
-	\item Linear \alert{solution} operator $\sol : \cf \to \cg$, input space $\cf$ contains functions defined on $\Omega \subseteq \reals^d$ \\
-	\qquad e.g., $\sol(f) = f$, \quad $- \nabla^2 \sol(f) = f, \  \sol(f) = 0$  on boundary
-	\item \alert{Approximation} $\app(f,n) = \sum_{i=1}^n L_i(f) g_i$, can sample linear functionals \\
-	\qquad $\norm[\cg]{\sol(f) - \app(f,n)} \le \norm[\cf \to \cg]{\sol - \app(\cdot,n)} \norm[\cf]{f}$
-	\item \alert{Algorithm} $\alg(f,\varepsilon) = \app\bigl(f,n^*(f,\varepsilon)\bigr)$ satisfying  
-	$\norm[\cg]{\sol(f) - \alg(f,\varepsilon)} \le \varepsilon$ for all $f \in \alert{\cc} \subset \cf$
-
-\uncover<2->{\item \alert{Solvability:} what $\cc$?  how  to determine $n^*(f,\varepsilon) \in \naturals$?  
-	\only<3->{\smallscoop\only<3->{\hspace{-6.5ex}\raisebox{-1.5ex}{\color{red}\fontsize{40}{48}\selectfont $\times$}} or \smallcone}
-\only<2>{
-	
-	\begin{itemize}
-	\item $n^*(f,\varepsilon) = \min\{n : \norm[\cf \to \cg]{\sol - \app(\cdot,n)} \le \varepsilon / R\}$  if $f \in \smallscoop$ of radius $R$
-	
-	\item Alternatively, assume $f \in \smallcone$ and bound $ \norm[\cf]{f}$ or equivalent\footfullcite{HicEtal17a,KunEtal19a,DinHic20a} \\
-	\emph{What you do not see is not much worse than what you see?}
-\end{itemize}}
-
-\only<3->{\item \alert{Optimality:} is $n^*(f,\varepsilon)$ essentially as small as possible?
-	
-	\item \alert{Tractability:} does $n^*(f,\varepsilon)$ depend nicely on $d$?
-}
-}
-
-\end{itemize}
-
-\end{frame}
-
 \end{document}
 
 
