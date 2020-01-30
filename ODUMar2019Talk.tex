@@ -155,23 +155,23 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \vspace{-2ex}
     \begin{gather*}
     f  :[a,b] \to \reals \\
-    a =: x_0 < x_1 < \cdots < x_n :=b, \quad \vx = \bigl( x_i \bigr)_{i=0}^n \talert{ data sites}\\ 
-   \talert{function data } \vy = f(\vx)
+    a =: x_0 < x_1 < \cdots < x_n :=b, \quad \mX = \bigl( x_i \bigr)_{i=0}^n \talert{ data sites}\\ 
+   \talert{function data } \vy = f(\mX)
 \end{gather*}
 \end{minipage}
 
 \begin{gather*}
-    \alert{\text{linear spline }}\app(n,\vx,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
-    \norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\vx,\vy)}  \le 
+    \alert{\text{linear spline }}\app(n,\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
+    \norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\mX,\vy)}  \le 
     \frac{(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}}{8}, \quad i \in \oton
 \end{gather*}
 \only<1-2>{\uncover<2>{Numerical analysis often stops here, leaving \alert{unanswered}  questions:
 
 \vspace{-2ex}
 \begin{itemize}
-    \item How big should $n$ be to make $\norm[{\infty}]{f - \app(n,\vx,\vy)} \le \varepsilon$?
+    \item How big should $n$ be to make $\norm[{\infty}]{f - \app(n,\mX,\vy)} \le \varepsilon$?
     \item How big is $\norm[{\infty,[x_{i-1},x_i]}]{f''}$?
-    \item How best to choose $\vx$?
+    \item How best to choose $\mX$?
 \end{itemize}
 }}
     
@@ -187,14 +187,14 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 		\vspace{-2ex}
 		\begin{gather*}
 		f  :[a,b] \to \reals \\
-		a =: x_0 < x_1 < \cdots < x_n :=b, \quad \vx = \bigl( x_i \bigr)_{i=0}^n \talert{ data sites}\\ 
-		\talert{function data } \vy = f(\vx)
+		a =: x_0 < x_1 < \cdots < x_n :=b, \quad \mX = \bigl( x_i \bigr)_{i=0}^n \talert{ data sites}\\ 
+		\talert{function data } \vy = f(\mX)
 		\end{gather*}
 	\end{minipage}
 	
 	\begin{gather*}
-	\alert{\text{linear spline }}\app(n,\vx,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
-	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\vx,\vy)}  \le 
+	\alert{\text{linear spline }}\app(n,\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
+	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\mX,\vy)}  \le 
 	\frac{(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}}{8}, \quad i \in \oton \\
    \norm[{-\infty, [x_{i-1},x_{i+1}]}]{f''}
 	\le \underbrace{2\abs{f[x_{i-1},x_i,x_{i+1}]} }_{\talert{data based}}
