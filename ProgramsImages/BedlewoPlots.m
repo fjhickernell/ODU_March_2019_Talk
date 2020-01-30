@@ -43,7 +43,7 @@ for ii = 1:nnodes
    text(xnodes(ii)-0.05,ylabelval-0.02,['\(x_{' int2str(noffset + ii) '}\)'],'color',zeros(1,3))
 end
 pbaspect([1 0.5 1])
-legend(h([1 3 2]),{'\(f\)','data','\(S(f,x_{0:n})\)'},...
+legend(h([1 3 2]),{'\(f\)','data','APP\((n,\textbf{\textit{x}},\textbf{\textit{y}})\)'},...
    'location','northwest','orientation','horizontal')
 legend boxoff
 print -depsc LinearSpline.eps
@@ -73,7 +73,7 @@ for ii = 1:nnodes
    text(xnodes(ii)-0.05,ylabelval-0.02,['\(x_{' int2str(noffset + ii) '}\)'],'color',zeros(1,3))
 end
 pbaspect([1 0.5 1])
-legend(h([1 6 2 4]),{'\(|f''''|\)','\(||f''''||\)','\(2|f[x_{i-1},x_i,x_{i+1}]|\)','\(||f''''||_{-\infty}\)'},...
+legend(h([1 6 2 4]),{'\(|f''''|\)','\(||f''''||_{\infty}\)','\(2|f[x_{i-1},x_i,x_{i+1}]|\)','\(||f''''||_{-\infty}\)'},...
    'location','northwest','orientation','horizontal')
 legend boxoff
 print -depsc LinearSplineSecDeriv.eps
