@@ -197,7 +197,7 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\mX,\vy)}  \le 
 	\frac{(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}}{8}, \quad i \in \oton \\
    \norm[{-\infty, [x_{i-1},x_{i+1}]}]{f''}
-	\le \underbrace{2\abs{f[x_{i-1},x_i,x_{i+1}]} }_{\talert{data based}}
+	\le \underbrace{\abs{\frac{\frac{f(x_{i+1}) - f(x_i)}{x_{i+1} - x_i} - \frac{f(x_i) - f(x_{i-1})}{x_i - x_{i-1}}}{(x_{i+1} - x_i)/2}}}_{\substack{D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]} \talert{ data based}\\ \talert{abs.\ $2^{\text{nd}}$ deriv.\ of interp.\ poly.}}}
 	\le \norm[{\infty, [x_{i-1},x_{i+1}]}]{f''}
 	\end{gather*}
 
