@@ -121,13 +121,13 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \begin{itemize}
     \item Given \alert{black-box} function routine $f \colon \Omega \subseteq \reals^d \to \reals$, e.g., output of a computer simulation
     
-    \item Cost of a function value, $\$(f)$, is \alert{expensive}
+    \item \alert{Expensive} cost of a function value, $\$(f)$, is 
     
     \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to \cg$ such that 
     \[
     \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg \alert{\text{ Banach space}}
     \]
-    cost of an $\alg(f,\varepsilon)$ value is \alert{cheap}\uncover<2->{
+    \alert{cheap} cost of an $\alg(f,\varepsilon)$ value \uncover<2->{
     \begin{gather*}
         \text{\alert{design or node array} }\mX \in \Omega^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
         \vx_{n+1} = \argmax_{\vx \in \Omega} \ACQ(\vx,n,\mX,\vy) \text{ \alert{acquisition function}} \\
