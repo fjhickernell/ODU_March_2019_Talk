@@ -45,8 +45,7 @@
 \newcommand{\LambdaAll}{\Lambda^{\textup{all}}}
 \newcommand{\oton}{1\!:\!n}
 \newcommand{\talert}[1]{\alert{\text{#1}}}
-
-%\DeclareMathOperator{\spann}{span}
+\DeclareMathOperator{\init}{init}
 %\DeclareMathOperator{\app}{app}
 
 \providecommand{\HickernellFJ}{H.}
@@ -119,7 +118,7 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 
 \vspace{-5ex}
 \begin{itemize}
-    \item Given \alert{black-box} function routine $f \colon \Omega \subseteq \reals^d \to \reals$, e.g., output of a computer simulation
+    \item Given \alert{black-box} function routine $f \colon \cx \subseteq \reals^d \to \reals$, e.g., output of a computer simulation
     
     \item \alert{Expensive} cost of a function value, $\$(f)$, is 
     
@@ -129,11 +128,11 @@ Adaptive algorithms are convenient for the practitioner because they automatical
     \]
     \alert{cheap} cost of an $\alg(f,\varepsilon)$ value \uncover<2->{
     \begin{gather*}
-        \text{\alert{design or node array} }\mX \in \Omega^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
-        \vx_{n+1} = \argmax_{\vx \in \Omega} \ACQ(\vx,n,\mX,\vy) \text{ \alert{acquisition function}} \\
-        \norm[\cg]{f - \app(n,\mX,\vy)} \le \ERR(n,\mX,\vy) \text{ \alert{data-driven error bound}} \qquad \forall n \in \naturals, \quad f \in \cc \\
-        n^* = \min \, \{ n \in \naturals \colon \ERR(n,\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} \\
-        \alg(f,\varepsilon) = \app(n^*,\mX,\vy) \text{ \alert{fixed budget approximation}}
+        \text{\alert{design or node array} }\mX \in \cx^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
+        \vx_{n+1} = \argmax_{\vx \in \cx} \ACQ(\vx,\mX,\vy) \text{ \alert{acquisition function}} \\
+        \norm[\cg]{f - \app(\mX,\vy)} \le \ERR(\mX,\vy) \text{ \alert{data-driven error bound}} \qquad \forall n \in \naturals, \quad f \in \cc \\
+        n^* = \min \, \{ n \in \naturals \colon \ERR(\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} \\
+        \alg(f,\varepsilon) = \app(\mX,\vy) \text{ \alert{fixed budget approximation} for this } n^*
     \end{gather*}}
  \end{itemize}
  
@@ -161,15 +160,15 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \end{minipage}
 
 \begin{gather*}
-    \alert{\text{linear spline }}\app(n,\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
-    \norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\mX,\vy)}  \le 
+    \alert{\text{linear spline }}\app(\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
+    \norm[{\infty,[x_{i-1}, x_i]}]{f - \app(\mX,\vy)}  \le 
     \frac{(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}}{8}, \qquad i \in \oton, \quad  f \in \cw^{2,\infty}
 \end{gather*}
 \only<1-2>{\uncover<2>{Numerical analysis often stops here, leaving \alert{unanswered}  questions:
 
 \vspace{-2ex}
 \begin{itemize}
-    \item How big should $n$ be to make $\norm[{\infty}]{f - \app(n,\mX,\vy)} \le \varepsilon$?
+    \item How big should $n$ be to make $\norm[{\infty}]{f - \app(\mX,\vy)} \le \varepsilon$?
     \item How big is $\norm[{\infty,[x_{i-1},x_i]}]{f''}$?
     \item How best to choose $\mX$?
 \end{itemize}
@@ -193,22 +192,120 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 	\end{minipage}
 	
 	\begin{gather*}
-	\alert{\text{linear spline }}\app(n,\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\
-	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(n,\mX,\vy)}  \le 
-	\frac{1}{8}(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}, \qquad i \in \oton, \quad  f \in \cw^{2,\infty} \\
-   \norm[{-\infty, [x_{i-1},x_{i+1}]}]{f''}
-	\le \underbrace{\Biggl \lvert \frac{\frac{f(x_{i+1}) - f(x_i)}{x_{i+1} - x_i} - \frac{f(x_i) - f(x_{i-1})}{x_i - x_{i-1}}}{(x_{i+1} - x_{i-1}/2}\Biggr \rvert}_{\substack{D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]} \talert{ data based}\\ \talert{abs.\ $2^{\text{nd}}$ deriv.\ of interp.\ poly.}}}
-	\le \norm[{\infty, [x_{i-1},x_{i+1}]}]{f''}
+	\only<1-2>{\alert{\text{linear spline }}\app(\mX,\vy)  := \frac{x -x_i}{x_{i-1} - x_i} y_{i-1} +  \frac{x -x_{i-1}}{x_i - x_{i-1}} y_{i}, \quad x_{i-1} \le x \le x_i, \quad i \in \oton \\}
+	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(\mX,\vy)}  \le 
+	\frac{1}{8}(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}\only<1-2>{,}\only<3->{\le \max_{\pm} \ERR_{i,\pm}(\mX,\vy),} \quad i \in \oton, \;  f \in \only<1-2>{\cw^{2,\infty}}\only<3->{\cc}
+   \only<1-2>{\\ \norm[{-\infty, [x_{i-1},x_{i+1}]}]{f''}
+	\le \underbrace{\Biggl \lvert \frac{\frac{f(x_{i+1}) - f(x_i)}{x_{i+1} - x_i} - \frac{f(x_i) - f(x_{i-1})}{x_i - x_{i-1}}}{(x_{i+1} - x_{i-1})/2}\Biggr \rvert}_{\substack{D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]} \talert{ data based}\\ \talert{abs.\ $2^{\text{nd}}$ deriv.\ of interp.\ poly.}}}
+	\le \norm[{\infty, [x_{i-1},x_{i+1}]}]{f''}}
 	\end{gather*}
 	\vspace{-3ex}
-	\uncover<2>{\begin{multline*}
+	\uncover<2->{\begin{multline*}
 	\talert{candidate set }	\cc : =  \Bigl \{ f \in \cw^{2,\infty}  : \abs{f''(x)} \le \max \bigl (\fC(h_{-}) \abs{f''(x - h_-)},  \fC(h_{+})\abs{f''(x + h_+)} \bigr), \ 
 	0 < h_{\pm} < \fh, \\[-1ex]
 	a < x < b \Bigr\} \qquad
 	\talert{inflation factor } \fC(h) := \frac{\fC_0 \fh}{\fh - h} \qquad \talert{$\abs{f''}$ does not change abruptly}
 	\end{multline*}}
+
+\only<3->{\vspace{-8ex} 
+	\begin{gather*}
+\ERR_{i,-}(\mX,\vy) =  \frac18 (x_i-x_{i-1})^2\fC(x_i - x_{i-3}) D_{i-2}(\mX,\vy), \\
+\ERR_{i,+}(\mX,\vy) = \frac 18 (x_i-x_{i-1})^2\fC(x_{i+2} - x_{i-1}) D_{i+1}(\mX,\vy)\\
+D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^{\text{nd}}$ derivative\ of interpoplating\ polynomial}
+\end{gather*}}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Adaptive Linear Spline Algorithm\footfullcite{ChoEtal17a}}
+	\only<1-2>{\northeaststuff{3.7}{2.5}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-1.eps}}}
+	\only<3>{\northeaststuff{3.7}{2.5}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-2.eps}}}
+	\only<4>{\northeaststuff{3.7}{2.5}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
+	
+	\vspace{-10ex}
+	
+	\parbox{4.2cm}{
+		Given $n_{\init} \ge 4$, $\fC_0 \ge 1$: 
+		
+		\vspace{-3ex}
+		
+		\begin{gather*}
+		\fh  = \left \lceil \frac{3(b-a)}{n_{\init}-1} \right \rceil , \qquad 
+		\fC(h) = \frac{\fC_0 \fh}{\fh - h} \\
+		n = n_{\init}, \qquad 
+		x_i = a + i(b-a)/n
+		\end{gather*}
+	}
+	
+	
+	\vspace{-2ex}
+	
+	\begin{description}
+		\item<2->[Step 1.] Compute data based $\ERR_{i,\pm}(\mX,\vy)$ for $i = 1, \ldots, n$.
+		\item<2->[Step 2.] Construct $\ci$, the index set of subintervals that might be split:
+		\begin{equation*}
+		\ci = \bigl\{i \in 1\! :\! n \ : \ \ERR_{i\pm j,\mp}(\mX,\vy) > \varepsilon, \ j = 0, 1, 2\}
+		\end{equation*}
+		\item<3->[Step 3.]  If $\ci = \emptyset$, return $\alg(f,\varepsilon) = \app(\mX,\vy)$ as the approximation satisfying the error tolerance.  Otherwise split those intervals in $\ci$ with largest width and go to Step 1 (\alert{acquisition function}). 
+	\end{description}
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Highlights of Adaptive Linear Spline Algorithm\footfullcite{ChoEtal17a}}
+	\only<1,4>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-1.eps}}}
+	\only<2,5>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-2.eps}}}
+	\only<3,6>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
+	
+	\vspace{-10ex}
+	
+
+\begin{itemize}[<+->]
+	\item Defined for \alert{cone candidate set, $\cc$}, whose definition \\
+	does not depend on the algorithm
+	
+	\item \alert{Guaranteed} to succeed for all $f \in \cc$
+	
+	\item \alert{Impossible} to have an algorithm for all $f \in \cw^{2,\infty}$ \\
+	since $\cw^{2,\infty}$ contains arbitrarily  large functions that look like $0$
+	
+	\item $\cost(\alg,f,\varepsilon,\cc) \asymp \sqrt{\frac{\fC_0 \norm[\alert{\frac 12}]{f''}}{\varepsilon}} \asymp \comp(f,\varepsilon,\cc)$ \alert{ optimal}
+	
+	\item Does not allow for  \alert{smoothness} to be inferred
+	
+	\item Not \alert{multivariate}
+	
+\end{itemize}
+	
+\end{frame}
+
+\section{Multivariate, Reproducing Kernel Hilbert Space}
+
+\begin{frame}{Approximation via Reproducing Kernel Hilbert Spaces\footfullcite{Fas07a,FasMcC15a}}
+\northeaststuff{3.7}{3.2}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
+	
+		\vspace{-10ex}
+
+\begin{minipage}{7cm}
+$\cf$ is a \alert{Hilbert space }  with \alert{reproducing kernel} $K : \cx \times \cx \to \reals$ 
+\begin{gather*}
+K(\mX,\mX) \talert{ positive definite } \forall \mX \\
+K(\cdot,\vx) \in \cf, \quad 
+f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
+\text{e.g., } K(\vt,\vx) = (1 + \norm[2]{\vt - \vx}) \exp\bigl( -\norm[2] {\vt - \vx}\bigr) \talert{ Mat\'ern}
+\end{gather*}
+\end{minipage}
+
+\uncover<2>{Optimal (minimum norm) interpolant is 
+\begin{gather*}
+\app(\mX,\vy) = K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} \vy, \qquad \vy = f(\mX) \\
+\norm[\infty]{f - \app(\mX,\vy)} \le \sqrt{\bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}} \ \norm[\cf]{f - \app(\mX,\vy)}
+\end{gather*}}
+
+
+
+
+\end{frame}
 
 
 \end{document}

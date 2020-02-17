@@ -43,7 +43,7 @@ for ii = 1:nnodes
    text(xnodes(ii)-0.05,ylabelval-0.02,['\(x_{' int2str(noffset + ii) '}\)'],'color',zeros(1,3))
 end
 pbaspect([1 0.5 1])
-legend(h([1 3 2]),{'\(f\)','data','APP\((n,\textbf{\textit{x}},\textbf{\textit{y}})\)'},...
+legend(h([1 3 2]),{'\(f\)','data','APP\((n,\textsf{X},\textbf{\textit{y}})\)'},...
    'location','northwest','orientation','horizontal')
 legend boxoff
 print -depsc LinearSpline.eps
