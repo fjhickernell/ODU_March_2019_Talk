@@ -255,7 +255,7 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 	\frametitle{Highlights of Adaptive Linear Spline Algorithm\footfullcite{ChoEtal17a}}
 	\only<1,4>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-1.eps}}}
 	\only<2,5>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-2.eps}}}
-	\only<3,6>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
+	\only<3,6->{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
 	
 	\vspace{-10ex}
 	
@@ -268,6 +268,9 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 	
 	\item \alert{Impossible} to have an algorithm for all $f \in \cw^{2,\infty}$ \\
 	since $\cw^{2,\infty}$ contains arbitrarily  large functions that look like $0$
+	
+	\item Adaptive algorithms do not help for \alert{ball} candidate sets \\
+	$\cc = \{ f : \norm[\infty]{f''} \le R\}$
 	
 	\item $\cost(\alg,f,\varepsilon,\cc) \asymp \sqrt{\frac{\fC_0 \norm[\alert{\frac 12}]{f''}}{\varepsilon}} \asymp \comp(f,\varepsilon,\cc)$ \alert{ optimal}
 	
