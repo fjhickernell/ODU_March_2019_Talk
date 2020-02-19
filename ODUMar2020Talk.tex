@@ -287,7 +287,7 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 \begin{frame}{Approximation via Reproducing Kernel Hilbert Spaces\footfullcite{Fas07a,FasMcC15a}}
 \northeaststuff{3.7}{3.2}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
 	
-		\vspace{-10ex}
+		\vspace{-8ex}
 
 \begin{minipage}{7cm}
 $\cf$ is a \alert{Hilbert space }  with \alert{reproducing kernel} \\ $K : \cx \times \cx \to \reals$ 
@@ -302,7 +302,8 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 \uncover<2>{Optimal (minimum norm) interpolant is 
 \begin{gather*}
 \app(\mX,\vy) = K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} \vy, \qquad \vy = f(\mX) \\
-\norm[\infty]{f - \app(\mX,\vy)} \le \sqrt{\bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}} \ \norm[\cf]{f - \app(\mX,\vy)}
+\norm[\infty]{f - \app(\mX,\vy)} \le \sqrt{\bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}} \ \norm[\cf]{f - \app(\mX,\vy)} \\
+\talert{candidate set } \cc = \{    \}
 \end{gather*}}
 
 
