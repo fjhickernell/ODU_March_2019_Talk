@@ -52,9 +52,11 @@
 
 
 \iffalse
-Adaptive Approximation to Multivariate Linear Problems with Inputs Lying in a Cone
+The Right Ingredients for Adaptive Function Approximation Algorithms
 
-Adaptive algorithms are convenient for the practitioner because they automatically determine the computational effort required to satisfy the error criterion.  The function data acquired for constructing the approximate solution are also used to compute a data-based error bound for the approximate solution.  Computation proceeds until this error bound becomes small enough.  If the set of allowed input functions is convex, adaptive algorithms may offer no advantage to non-adaptive algorithms.  We construct an adaptive algorithm for solving a general, linear problem where the input functions lie in a  \emph{non-convex cone}. The stopping criterion is based on theory, not heuristics.  The cone of input functions is defined so that sampling the most important Fourier series coefficients is sufficient to bound the magnitude of the unsampled Fourier coefficients.  We show that our adaptive algorithm is optimal.  We also determine conditions under which the problem is tractable.  This work is related to  the adaptive algorithms developed in \cite{HicEtal14a,HicEtal17a,KunEtal19a}.
+Adaptive algorithms are convenient because they automatically determine the computational effort required to satisfy the error criterion.  The function data acquired for constructing the approximate solution are used to compute a data-based error bound for the approximate solution.  Computation proceeds until this error bound becomes small enough.  Unfortunately, most data-based error bounds are heuristic.  
+
+We describe a framework for theoretically justified, adaptive function approximation algorithms.  A key ingredient is identifying a suitable non-convex candidate cone of functions for which the data-based error bound succeeds.  Our framework is illustrated via recent results for univariate functions obtained by the speaker and collaborators, which include proofs of asymptotic optimality.  We also present work in progress for multivariate function approximation using reproducing kernels.
 
 \fi
 
@@ -120,7 +122,7 @@ Adaptive algorithms are convenient for the practitioner because they automatical
 \begin{itemize}
     \item Given \alert{black-box} function routine $f \colon \cx \subseteq \reals^d \to \reals$, e.g., output of a computer simulation
     
-    \item \alert{Expensive} cost of a function value, $\$(f)$, is 
+    \item \alert{Expensive} cost of a function value, $\$(f)$
     
     \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to \cg$ such that 
     \[
