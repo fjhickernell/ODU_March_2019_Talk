@@ -253,9 +253,9 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 
 \begin{frame}
 	\frametitle{Highlights of Adaptive Linear Spline Algorithm\footfullcite{ChoEtal17a}}
-	\only<1,4>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-1.eps}}}
-	\only<2,5>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-2.eps}}}
-	\only<3,6->{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
+	\only<1,4,7>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-1.eps}}}
+	\only<2,5,8>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-2.eps}}}
+	\only<3,6,9->{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/sampling-funappxg-3.eps}}}
 	
 	\vspace{-10ex}
 	
@@ -265,11 +265,17 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 	does not depend on the algorithm
 	
 	\item \alert{Guaranteed} to succeed for all $f \in \cc$
+
 	
+	\item Candidate set $\cc$ \alert{excludes spikes}, \\
+	i.e., two nearby changes in sign of $f''$
+	
+	\item $\cc$ formalizes \alert{what you see is what you get}
+
 	\item \alert{Impossible} to have an algorithm for all $f \in \cw^{2,\infty}$ \\
 	since $\cw^{2,\infty}$ contains arbitrarily  large functions that look like $0$
 	
-	\item Adaptive algorithms \alert{do not help for ball} candidate sets \\
+	\item Adaptive algorithms \alert{do not help for ball} candidate sets 
 	$\cc = \{ f : \norm[\infty]{f''} \le R\}$
 	
 	\item $\cost(\alg,f,\varepsilon,\cc) \asymp \sqrt{\frac{\fC_0 \norm[\alert{\frac 12}]{f''}}{\varepsilon}} \asymp \comp(f,\varepsilon,\cc)$ \alert{ optimal}
