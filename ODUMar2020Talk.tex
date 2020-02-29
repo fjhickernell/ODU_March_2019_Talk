@@ -268,9 +268,8 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 	
 	\item \alert{Guaranteed} to succeed for all $f \in \cc$
 
-	
 	\item Candidate set $\cc$ \alert{excludes spikes}, \\
-	i.e., two nearby changes in sign of $f''$
+	i.e., two nearby inflection points
 	
 	\item $\cc$ formalizes \alert{what you see is what you get}
 
@@ -292,13 +291,15 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 
 \section{Multivariate, Reproducing Kernel Hilbert Space}
 
-\begin{frame}{Approximation via Reproducing Kernel Hilbert Spaces\footfullcite{Fas07a,FasMcC15a}}
-\northeaststuff{3.7}{3.2}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
+\begin{frame}{Approximation via Reproducing Kernel Hilbert Spaces (RKHSs) \footfullcite{Fas07a,FasMcC15a}}
+\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
 	
 		\vspace{-8ex}
 
 \begin{minipage}{7cm}
 $\cf$ is a \alert{Hilbert space }  with \alert{reproducing kernel} \\ $K : \cx \times \cx \to \reals$ 
+
+\vspace{-4ex}
 \begin{gather*}
 K(\mX,\mX) \talert{ positive definite } \forall \mX \\
 K(\cdot,\vx) \in \cf, \quad 
@@ -307,14 +308,50 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 \end{gather*}
 \end{minipage}
 
-\uncover<2>{Optimal (minimum norm) interpolant is 
-\begin{gather*}
-\app(\mX,\vy) = K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} \vy, \qquad \vy = f(\mX) \\
-\norm[\infty]{f - \app(\mX,\vy)} \le \sqrt{\bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}} \ \norm[\cf]{f - \app(\mX,\vy)} \\
-\talert{candidate set } \cc = \{    \}
-\end{gather*}}
+\vspace{-2ex}
+\uncover<2->{Optimal (minimum norm) interpolant is 
+\[
+\app(\mX,\vy) = K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} \vy, \qquad \vy = f(\mX)
+\] 
 
+\vspace{-6ex}
+\begin{align*}
+\norm[\infty]{f - \app(\mX,\vy)}^2  &\le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \norm[\cf]{f - \app(\mX,\vy)}^2 \quad \talert{known}\uncover<3->{\\
+& \le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)} \ \norm[\cf]{ \app(\mX,\vy)}^2 =: \alert{\ERR^2(\mX,\vy)}}
+\end{align*}
+\vspace{-1ex}
+\[
+\talert{candidate set } \cc = \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
+\]}
 
+\end{frame}
+
+\begin{frame}{Error and Acquisition for Optimal RKHS Approximation}
+	\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
+	
+	\vspace{-5ex}
+	
+	\begin{minipage}{7cm}
+		$\cf$ is a \alert{Hilbert space }  with \alert{reproducing kernel} \\ $K : \cx \times \cx \to \reals$ 
+		
+		\vspace{-4ex}
+		\begin{gather*}
+		\text{e.g., } K(\vt,\vx) = (1 + \norm[2]{\vt - \vx}) \exp\bigl( -\norm[2] {\vt - \vx}\bigr) \talert{ Mat\'ern} \\
+		\app(\mX,\vy) = K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} \vy, \qquad \vy = f(\mX) \\
+		\talert{candidate set } \cc = \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
+		\end{gather*}
+	\end{minipage}
+	
+	\vspace{-2ex}
+	\begin{align*}
+	\norm[\infty]{f - \app(\mX,\vy)}^2  &\le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \norm[\cf]{f - \app(\mX,\vy)}^2 \quad \talert{known}\\
+		& \le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)} \ \norm[\cf]{ \app(\mX,\vy)}^2 =: \alert{\ERR^2(\mX,\vy)} \\
+	\ACQ(\vx,\mX,\vy)  & : = \bigl[K(\vx,\vx) -  K(\vx,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \vx) \bigr]  \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)}  \ \underbrace{\norm[\cf]{ \app(\mX,\vy)}^2}_{\alert{\vy^T(K(\mX,\mX) )^{-1} \vy}} \\[-1ex]
+	        \vx_{n+1} &= \argmax_{\vx \in \cx} \ACQ(\vx,\mX,\vy) \text{ \alert{acquisition function}} \\
+	\alg(f,\varepsilon) &= \app(\mX,\vy) \quad \text{for } n^* = \min \, \{ n \in \naturals \colon \ERR(\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} 
+	\end{align*}
+
+	
 
 
 \end{frame}
