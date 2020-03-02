@@ -327,8 +327,8 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 \end{frame}
 
 \begin{frame}{Error and Acquisition for Optimal RKHS Approximation}
-	\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}
-	
+	\only<1>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppx.eps}}}
+	\only<2>{\northeaststuff{3.7}{3}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppxAndRMSPE.eps}}}
 	\vspace{-5ex}
 	
 	\begin{minipage}{7cm}
@@ -351,8 +351,55 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 	\alg(f,\varepsilon) &= \app(\mX,\vy) \quad \text{for } n^* = \min \, \{ n \in \naturals \colon \ERR(\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} 
 	\end{align*}
 
-	
+\end{frame}
 
+\begin{frame}{Must Infer Kernel from $\vy = f(\mX)$}
+	\vspace{-2ex}
+	\only<2>{\northeaststuff{3.5}{2.45}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppxAndRMSPEOpt.eps}}\vspace{-5ex}}
+		\only<3>{\northeaststuff{3.5}{2.45}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppxAndRMSPEOpty.eps}}\vspace{-5ex}}
+		\only<4>{\northeaststuff{3.5}{2.45}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppxAndRMSPEOptyFinal50.eps}}\vspace{-5ex}}
+		\only<5>{\northeaststuff{3.5}{2.45}{\includegraphics[width=6cm]{ProgramsImages/fandDataAndAppxAndRMSPEOptyFinal20.eps}}\vspace{-5ex}}
+	
+	
+	\begin{minipage}{8cm}
+		$\cf_{\vtheta}$ is a \alert{Hilbert space }  with \alert{reproducing kernel} $K_{\vtheta}$
+		
+		\vspace{-3ex}
+		\begin{align*}
+		\cc & =  \bigl\{ f \in \mathop{\cup} _{\vtheta} \, \cf_{\vtheta} :  \norm[\cf_{\vtheta^*}]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf_{\vtheta^*}]{f} \\
+		&\qquad \qquad \forall \mX, \ \vy = f(\mX), \ \vtheta^*(\mX,\vy) \text{ given below} \bigr\} \\
+		\only<1-2>{\text{e.g., } & K_{\vtheta}(\vt,\vx) = (1 + \norm[2]{\vtheta \odot(\vt - \vx)}) \exp\bigl( -\norm[2] {\vtheta \odot(\vt - \vx)}\bigr)}
+		\only<3->{\text{e.g., } &  K_{\vtheta}(\vt,\vx) = \exp(\vb^T(\vt+\vx)) \\
+			& \qquad \times (1 + \norm[2]{\va \odot(\vt - \vx)}) \exp\bigl( -\norm[2] {\va \odot(\vt - \vx)}\bigr) , \ 
+		\vtheta  =(\va,\vb)}
+		\end{align*}
+	\end{minipage}
+	
+	\vspace{-2ex}\only<2>{\vspace{2ex}}
+		Choose the $\vtheta$ (inspired by empirical Bayes) \alert{by minimizing the ellipsoid in $\reals^n$ of function data yielding interpolants with no greater norm than that observed:}
+
+	\vspace{-6ex}		
+	\begin{align*}
+\vtheta^* &= \argmin_\vtheta \left[\frac 1n \log \bigl( \det(\mK_\vtheta) \bigr) + \log \bigl ( \vy^T \mK_\vtheta^{-1} \vy \bigr)\right]
+	\\
+	\norm[\infty]{f - \app(\mX,\vy)}^2 
+	& \le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)} \ \vy^T(K(\mX,\mX) )^{-1} \vy =: \alert{\ERR^2(\mX,\vy)} \\
+	\ACQ(\vx,\mX,\vy)  & : = \bigl[K(\vx,\vx) -  K(\vx,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \vx) \bigr]  \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)}  \ \vy^T(K(\mX,\mX) )^{-1} \vy \\[-1ex]
+	\vx_{n+1} &= \argmax_{\vx \in \cx} \ACQ(\vx,\mX,\vy) \text{ \alert{acquisition function}}
+	\end{align*}
+	
+\end{frame}
+
+\begin{frame}{What Should $\fC(\mX)$ Be?}
+	\[
+	\cc  =  \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
+	\]
+	As $\mX$ covers $\cx$ better, $\fC(\mX)$ should decrease.  Suggest choosing
+	\begin{align*}
+	\frac{ \norm[\cf]{f - \app(\mX,\vy)}^2 }{ \norm[\cf]{f}^2 } = \fC^2(\mX) & : = \fC_0^2 \norm[\infty]{\frac{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1,   \ f(\mX) = \vzero  \}}{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1 \}}} \\
+	&  = \fC_0 \norm[\infty]{\frac{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}{K(\cdot,\cdot)}}
+	\end{align*}
+	
 
 \end{frame}
 
