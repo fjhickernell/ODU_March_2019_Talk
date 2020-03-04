@@ -69,7 +69,7 @@ We describe a framework for theoretically justified, adaptive function approxima
 	\href{mailto:hickernell@iit.edu}{\url{hickernell@iit.edu}} \quad
 	\href{http://mypages.iit.edu/~hickernell}{\url{mypages.iit.edu/~hickernell}}}
 
-\thanksnote{with Yuhan Ding, Mac Hyman, Peter Kritzer, and Simon Mak \\
+\thanksnote{with Yuhan Ding, Mac Hyman, and the GAIL team \\
 	partially supported by  NSF-DMS-1522687 and NSF-DMS-1638521 (SAMSI)
 }
 \event{Old Dominion University}
@@ -153,7 +153,7 @@ We describe a framework for theoretically justified, adaptive function approxima
 	
 	\item Kan Zhang (IIT PhD '20 exp.)
 	
-	\item Yizhi Zhang (IIT PhD '18)
+	\item Yizhi Zhang (IIT PhD '18, consultant)
 	
 	\item Xuan Zhou (IIT PhD '15, JP Morgan)
 	
@@ -181,7 +181,7 @@ We describe a framework for theoretically justified, adaptive function approxima
     \[
     \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg \alert{\text{ Banach space}}
     \]
-    \alert{cheap} cost of an $\alg(f,\varepsilon)$ value \uncover<2->{
+    \alert{cheap} cost of an $\alg(f,\varepsilon)$ value\only<1>{, e.g., spline}\uncover<2->{
     \begin{gather*}
         \text{\alert{design or node array} }\mX \in \cx^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
         \vx_{n+1} = \argmax_{\vx \in \cx} \ACQ(\vx,\mX,\vy) \text{ \alert{acquisition function}} \\
@@ -324,7 +324,7 @@ D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]}  \talert{ data based, absolute\ $2^
 	\item Candidate set $\cc$ \alert{excludes spikes}, \\
 	i.e., two nearby inflection points
 	
-	\item $\cc$ formalizes \alert{what you see is what you get}
+	\item $\cc$ formalizes \alert{what you see is almost what you get}
 
 	\item \alert{Impossible} to have an algorithm for all $f \in \cw^{2,\infty}$ \\
 	since $\cw^{2,\infty}$ contains arbitrarily  large functions that look like $0$
@@ -460,8 +460,25 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 \section{Summary}
 
 \begin{frame}
-	content...
+	{What Are the Right Ingredients for Adaptive Function Approximation?}
+	
+	\begin{itemize}
+		\item A fixed budget \alert{approximation}, $\app : \cx^n \times \reals^n \to \cg$, with an error bound, e.g., linear splines, RKHS approximation
+		
+		\item An unbounded, non-convex \alert{candidate set}, $\cc$, for which the error bound can be bounded in \alert{data-driven} way; what you see is almost what you get
+		
+		\item \alert{Necessary} conditions for $f$ to lie in $\cc$; will not have sufficient conditions
+		
+		\item A rich enough candidate set from which the right approximation can be \alert{inferred}; attention to underfitting and overfitting
+		
+		\item Attention to 
+		
+	\end{itemize}
+
+
 \end{frame}
+
+
 
 \end{document}
 
