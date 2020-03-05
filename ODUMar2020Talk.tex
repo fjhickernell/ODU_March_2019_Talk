@@ -179,15 +179,15 @@ Adaptive software libraries \href{https://gailgithub.github.io/GAIL_Dev/}{\beame
     
     \item \alert{Expensive} cost of a function value, $\$(f)$
     
-    \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to \cg$ such that 
+    \item Want \alert{fixed tolerance algorithm} $\alg: \cc \times (0,\infty) \to L^{\infty}(\cx)$ such that 
     \[
-    \norm[\cg]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}, \quad \cc \subset \cg \alert{\text{ Banach space}}
+    \norm[\infty]{f - \alg(f,\varepsilon)} \le \varepsilon \qquad \forall f \in \cc \text{ \alert{candidate set}}
     \]
     \alert{cheap} cost of an $\alg(f,\varepsilon)$ value\only<1>{, e.g., spline}\uncover<2->{
     \begin{gather*}
         \text{\alert{design or node array} }\mX \in \cx^n \subseteq \reals^{n \times d}, \qquad \text{\alert{function data} }  \vy = f(\mX)\in \reals^n \\
         \vx_{n+1} = \argmax_{\vx \in \cx} \ACQ(\vx,\mX,\vy) \text{ \alert{acquisition function}} \\
-        \norm[\cg]{f - \app(\mX,\vy)} \le \ERR(\mX,\vy) \text{ \alert{data-driven error bound}} \qquad \forall n \in \naturals, \quad f \in \cc \\
+        \norm[\infty]{f - \app(\mX,\vy)} \le \ERR(\mX,\vy) \text{ \alert{data-driven error bound}} \qquad \forall n \in \naturals, \quad f \in \cc \\
         n^* = \min \, \{ n \in \naturals \colon \ERR(\mX,\vy) \le \varepsilon \} \text{ \alert{stopping criterion}} \\
         \alg(f,\varepsilon) = \app(\mX,\vy) \text{ \alert{fixed budget approximation} for this } n^*
     \end{gather*}}
@@ -371,13 +371,13 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 
 \vspace{-6ex}
 \begin{align*}
-\norm[\infty]{f - \app(\mX,\vy)}^2  &\le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \norm[\cf]{f - \app(\mX,\vy)}^2 \quad \talert{known}\uncover<3->{\\
+\norm[\infty]{f - \app(\mX,\vy)}^2  &\le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \norm[\cf]{f - \app(\mX,\vy)}^2 \quad \talert{known}\uncover<4->{\\
 & \le \bignorm[\infty]{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)} \ \frac{\fC^2(\mX)}{1 - \fC^2(\mX)} \ \norm[\cf]{ \app(\mX,\vy)}^2 =: \alert{\ERR^2(\mX,\vy)}}
 \end{align*}
 \vspace{-1ex}
-\[
+\uncover<3->{\[
 \talert{candidate set } \cc = \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
-\]}
+\]}}
 
 \end{frame}
 
@@ -471,7 +471,7 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 	{What Are the Right Ingredients for Adaptive Function Approximation?}
 	
 	\begin{itemize}
-		\item A fixed budget \alert{approximation}, $\app : \cx^n \times \reals^n \to \cg$, with an error bound, e.g., linear splines, RKHS approximation
+		\item A fixed budget \alert{homogeneous approximation}, $\app : \cx^n \times \reals^n \to L^{\infty}(\cx)$, with an error bound, e.g., linear splines, RKHS approximation
 		
 		\item An unbounded, non-convex \alert{candidate set}, $\cc$, for which the error bound can be bounded in \alert{data-driven} way; what you see is almost what you get
 		
@@ -509,6 +509,7 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 
 
 \thankyouframe
+
 
 \begin{frame}
 	\frametitle{References}
