@@ -70,7 +70,9 @@ We describe a framework for theoretically justified, adaptive function approxima
 	\href{http://mypages.iit.edu/~hickernell}{\url{mypages.iit.edu/~hickernell}}}
 
 \thanksnote{with Sou-Cheng Choi, Yuhan Ding, Mac Hyman, Xin Tong, and the GAIL team \\
-	partially supported by  NSF-DMS-1522687 and NSF-DMS-1638521 (SAMSI)
+	partially supported by  NSF-DMS-1522687 and NSF-DMS-1638521 (SAMSI) \\[2ex]
+	Thanks to Guohui Song for the invitation and hospitality
+	
 }
 \event{Old Dominion University}
 \date[]{March 6, 2020}
@@ -153,7 +155,7 @@ We describe a framework for theoretically justified, adaptive function approxima
 	
 	\item Kan Zhang (IIT PhD '20 exp.)
 	
-	\item Yizhi Zhang (IIT PhD '18, consultant)
+	\item Yizhi Zhang (IIT PhD '18, Jamran Int'l)
 	
 	\item Xuan Zhou (IIT PhD '15, JP Morgan)
 	
@@ -162,7 +164,7 @@ We describe a framework for theoretically justified, adaptive function approxima
 	
 \end{itemize}
 
-\qquad \href{https://gailgithub.github.io/GAIL_Dev/}{\beamerbutton{GAIL}} and \href{https://qmcsoftware.github.io/QMCSoftware/}{\beamerbutton{QMCPy}}
+Adaptive software libraries \href{https://gailgithub.github.io/GAIL_Dev/}{\beamerbutton{GAIL}} and \href{https://qmcsoftware.github.io/QMCSoftware/}{\beamerbutton{QMCPy}}
 
 	
 	\end{tabular}
@@ -251,7 +253,7 @@ We describe a framework for theoretically justified, adaptive function approxima
 	\norm[{\infty,[x_{i-1}, x_i]}]{f - \app(\mX,\vy)}  \le 
 	\frac{1}{8}(x_i - x_{i-1})^2\norm[{\infty,[x_{i-1},x_i]}]{f''}\only<1-2>{,}\only<3->{\le \max_{\pm} \ERR_{i,\pm}(\mX,\vy),} \quad i \in \oton, \;  f \in \only<1-2>{\cw^{2,\infty}}\only<3->{\cc}
    \only<1-2>{\\ \norm[{-\infty, [x_{i-1},x_{i+1}]}]{f''}
-	\le \underbrace{\Biggl \lvert \frac{\frac{f(x_{i+1}) - f(x_i)}{x_{i+1} - x_i} - \frac{f(x_i) - f(x_{i-1})}{x_i - x_{i-1}}}{(x_{i+1} - x_{i-1})/2}\Biggr \rvert}_{\substack{D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]} \talert{ data based}\\ \talert{abs.\ $2^{\text{nd}}$ deriv.\ of interp.\ poly.}}}
+	\le \underbrace{\Biggl \lvert \frac{\frac{y_{i+1} - y_i}{x_{i+1} - x_i} - \frac{y_i - y_{i-1}}{x_i - x_{i-1}}}{(x_{i+1} - x_{i-1})/2}\Biggr \rvert}_{\substack{D_i(\mX,\vy) = 2\abs{f[x_{i-1},x_i,x_{i+1}]} \talert{ data based}\\ \talert{abs.\ $2^{\text{nd}}$ deriv.\ of interp.\ poly.}}}
 	\le \norm[{\infty, [x_{i-1},x_{i+1}]}]{f''}}
 	\end{gather*}
 	\vspace{-3ex}
@@ -443,21 +445,27 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 	
 \end{frame}
 
-\begin{frame}{What Should $\fC(\mX)$ Be?}
-	\[
-	\cc  =  \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
-	\]
-	As $\mX$ covers $\cx$ better, $\fC(\mX)$ should decrease.  Suggest choosing
-	\begin{align*}
-	\frac{ \norm[\cf]{f - \app(\mX,\vy)}^2 }{ \norm[\cf]{f}^2 } = \fC^2(\mX) & : = \fC_0^2 \norm[\infty]{\frac{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1,   \ f(\mX) = \vzero  \}}{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1 \}}} \\
-	&  = \fC_0^2  \norm[\infty]{\frac{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}{K(\cdot,\cdot)}}
-	\end{align*}
-	
 
+\begin{frame}
+	{Cheng and Sandu Function\footfullcite{BinSur13, ChenSan10a}}
+	\begin{tabular}{p{0.32\textwidth}@{\;}p{0.32\textwidth}@{\;}p{0.32\textwidth}}
+		\multicolumn{1}{>{\centering}p{0.32\textwidth}}{$f(\vx) = \cos(x_1 + x_2) \exp(x_1 x_2)$} &
+		\multicolumn{1}{>{\centering}p{0.32\textwidth}}{error w/ Mat\'ern \&  $\vtheta = \vone$} & \multicolumn{1}{>{\centering}p{0.32\textwidth}}{
+		error w/ mod.\ Mat\'ern + opt.\ $\vtheta$ \newline $\varepsilon = 0.05$}
+		\tabularnewline
+		\hspace{-0.75cm}\includegraphics[width = 0.4\textwidth]{ProgramsImages/ChengFunData.eps}
+		&
+		\hspace{-0.6cm}\includegraphics[width = 0.4\textwidth]{ProgramsImages/ChengFunErrNoOpt.eps}
+&
+		\only<1>{\hspace{-0.45cm}\includegraphics[width = 0.4\textwidth]{ProgramsImages/ChengFunErrOpty.eps}}
+		\only<2>{\hspace{-0.45cm}\includegraphics[width = 0.4\textwidth]{ProgramsImages/ChengFunErrOptyFinal.eps}}
+	\end{tabular}
 \end{frame}
 
 
 \section{Summary}
+
+\vspace{-6ex}
 
 \begin{frame}
 	{What Are the Right Ingredients for Adaptive Function Approximation?}
@@ -471,25 +479,38 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 		
 		\item A rich enough candidate set from which the right approximation can be \alert{inferred}; attention to underfitting and overfitting
 		
-		\item Attention to 
-		
+			
 	\end{itemize}
+
+
+	\uncover<2->{
+	\begin{itemize}
+	\item More work is needed on 
+	
+	\begin{itemize}
+		
+		\item What makes a good initial sample
+	
+		\item Balancing the richness of the candidate set with overfitting
+		
+		\item Numerical instability and computational effort challenges for larger numbers of data sites. 
+	
+	
+\end{itemize}
+\end{itemize}
+}
 
 
 \end{frame}
 
 
 
-\end{document}
-
-
-
-\finalthanksnote{These slides are  available at \\  \href{https://speakerdeck.com/fjhickernell/mcm-2019-pilot-sample}{\nolinkurl{speakerdeck.com/fjhickernell/mcm-2019-pilot-sample}}}
+\finalthanksnote{These slides are  available at \\  \href{https://speakerdeck.com/fjhickernell/right-ingredients-for-adaptive-function-approximation}{\nolinkurl{speakerdeck.com/fjhickernell/right-ingredients-for-adaptive-function-approximation}}}
 
 
 \thankyouframe
 
-\begin{frame}[allowframebreaks]
+\begin{frame}
 	\frametitle{References}
 \printbibliography
 \end{frame}
@@ -499,5 +520,17 @@ f(\vx) = \ip[\cf]{K(\cdot,\vx)}{f} \qquad \forall \vx \in \cx, \\
 
 \end{document}
 
+\begin{frame}{What Should $\fC(\mX)$ Be?}
+	\[
+	\cc  =  \bigl\{ f \in \cf :  \norm[\cf]{f - \app(\mX,\vy)} \le  \alert{\fC(\mX)} \norm[\cf]{f} \bigr\}
+	\]
+	As $\mX$ covers $\cx$ better, $\fC(\mX)$ should decrease.  Suggest choosing
+	\begin{align*}
+	\frac{ \norm[\cf]{f - \app(\mX,\vy)}^2 }{ \norm[\cf]{f}^2 } = \fC^2(\mX) & : = \fC_0^2 \norm[\infty]{\frac{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1,   \ f(\mX) = \vzero  \}}{\sup \{ \abs{f(\cdot)}^2 : \norm[\cf]{f} \le 1 \}}} \\
+	&  = \fC_0^2  \norm[\infty]{\frac{K(\cdot,\cdot) -  K(\cdot,\mX)\bigl(K(\mX,\mX) \bigr)^{-1} K(\mX, \cdot)}{K(\cdot,\cdot)}}
+	\end{align*}
+	
+	
+\end{frame}
 
 
